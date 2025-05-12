@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import axios from 'axios';
 
+const API = import.meta.env.VITE_BACKEND_URL;  // ← Add this line
+
 function Signup() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -9,7 +11,7 @@ function Signup() {
   const handleSignup = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:8000/signup', {
+      const response = await axios.post(`${API}/signup`, {   // ← Use API here
         email,
         password,
       });
@@ -30,6 +32,7 @@ function Signup() {
             placeholder="Enter email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            required
           />
           <input
             className="bg-black border border-terminal text-terminal p-2"
@@ -37,6 +40,7 @@ function Signup() {
             placeholder="Enter password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            required
           />
           <button
             className="bg-terminal text-black font-bold py-2 hover:opacity-80"
